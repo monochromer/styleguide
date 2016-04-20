@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="assets/css/normalize.css">
+	<link rel="stylesheet" href="assets/css/darkula.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<title>Styleguide</title>
+</head>
+<body id="top">
+	<div class="container">
+
+		<div class="to-top">
+			<a href="#top">Наверх</a>
+		</div>
+
+		<div class="side">
+			<nav class="nav">
+				<ol class="widget">
+					<li>
+						<a href="#common">Общие положения</a>
+					</li>
+					<li>
+						<a href="#html">Написание html</a>
+					</li>
+					<li>
+						<a href="#css">Написание css</a>
+					</li>
+					<li>
+						<a href="#js">Написание JavaScript</a>
+					</li>
+					<li>
+						<a href="#links">Полезные ссылки</a>
+					</li>
+				</ol>
+			</nav>
+		</div>
+
+		<main class="main widget">
+
+			<h1>Руководство по стилю написания html/css/js</h1>
+
+			<p><strong>Цель использования общего стиля написания кода</strong> - весь код в любом проекте должен выглядеть так, будто его создал один человек, вне зависимости от того, сколько людей на самом деле принимали участие.</p>
+
+
+			<section class="section" id="common">
+				<h2>Общие положения</h2>
+
+				<h3>Отступы</h3>
+				<p>Для форматрования документов нужно определиться с использованием отступов в документе - табы или пробелы (и количество пробелов). Никогда не смешивайте пробелы и табуляцию. Исключение: если используете табы, то пробелы можно задействовать, например, для выравнивания свойств в css для удобства чтения и мультистрочного редактирования.</p>
+<code class="css">
+.box {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+}
+</code>
+				<p><strong>Совет</strong>: настройте редактор кода так, чтобы он отображал невидимые символы. Это позволит избегать случайных пробелов в конце строк или в пустых строках и легче отслеживать изменения в коде.</p>
+
+				<h3>Кавычки</h3>
+				<p>Для html и css использовать двойные кавычки. Для javascript – одинарные. Исключение для html – в data-атрибутах помещены данные в формате json. Например:</p>
+<code class="html">
+&lt;div class="btn" data-modal='{"target": "modal-id-1", "action": "open"}'&gt;&lt;/div&gt;
+</code>
+
+				<h3>Подключение файлов</h3>
+				<p>Все стили и скрипты должны быть только в отдельных файлах. Встроенных и внедрённых в тег стилей (в атрибуте style) не должно быть.</p>
+				<p>Согласно спецификации HTML5, при подключении CSS и JavaScript файлов не требуется указание атрибута <code>type</code>, так как <code>text/css</code> и <code>text/javascript</code> являются значениями по умолчанию.</p>
+			</section>
+
+
+			<section class="section" id="html">
+				<h2>Написание html</h2>
+
+				<p>Рекомендуется использовать следующий минимальный шаблон.</p>
+<code class="html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="X-UA-Compatible" content="IE=edge"&gt;
+    &lt;title&gt;Заголовок страницы&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+				<p>Тип документа для новых проектов — html5. Это заставит браузер работать в режиме соответствия стандартам, что обеспечит единообразное отображение ваших страниц в разных браузерах. Исключение — верстка для писем и проектов, поддерживающих старые браузеры.</p>
+				<p>Обязательно указывать атрибут языка. Для указания языка документа авторам рекомендуется прописывать атрибут языка в корневом элементе html. Это поможет инструментам синтеза речи определить какое произношение использовать, а инструментам перевода - какие правила, и так далее. </p>
+				<p>IE поддерживает использование специального &lt;meta&gt;-тега, который указывает в режиме совместимости с какой версией IE следует отрендерить страницу. Если обстоятельства не требуют какой-то специальной версии IE, то самым правильным будет заставить браузер использовать режим самой последней версии (edge mode).</p>
+				<p>Явно объявив кодировку символов, вы быстро и легко обеспечите правильное отображение вашего контента. При этом, вы сможете избежать использования <a href="http://www.w3schools.com/html/html_entities.asp">символьных сущностей</a> в вашем HTML-коде, при условии, что их кодировка совпадает с кодировкой документа (как правило, utf-8). </p>
+
+				<h3>Порядок атрибутов</h3>
+				<p>Для удобства чтения нужно придерживаться определенного порядка следования HTML-атрибутов:</p>
+				<ul>
+					<li>
+						<code>class</code>
+					</li>
+					<li>
+						<code>id, name</code>
+					</li>
+					<li>
+						<code>data-*</code>
+					</li>
+					<li>
+						<code>src, for, type, href</code>
+					</li>
+					<li>
+						<code>title, alt </code>
+					</li>
+					<li>
+						<code>aria-*, role </code>
+					</li>
+				</ul>
+				<p>Классы создают для многократно используемых компонентов верстки, поэтому они идут первыми. Идентификаторы более специфичны и должны использоваться умеренно (например, для закладок на странице), поэтому они следуют вторыми.</p>
+
+				<h3>Логические атрибуты</h3>
+				<p>Логические атрибуты одни из тех, которые не требуют объявленного значения. XHTML требует от вас задать значение, но в HTML5 нет такого требования.</p>
+				<p>За подробной информацией обратимся к <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-microsyntaxes.html#boolean-attributes">разделу о логических атрибутах на WhatWG</a>:</p>
+				<blockquote>Наличие логического атрибута у элемента говорит об истинном его значении, а отсутствие атрибута — о ложном.</blockquote>
+				<p>Если вы должны указать значение атрибута, но <strong>вам это не нужно</strong>, следуйте этой рекомендации от WhatWG:</p>
+				<blockquote>Если атрибут присутствует, его значение должно быть либо пустой строкой или [...] каноническим именем атрибута без начальных или конечных пробелов.</blockquote>
+			</section>
+
+			<section class="section" id="css">
+				<h2>Написание css</h2>
+
+				<h3>Комментарии</h3>
+				<p>Используйте комментарии для разделов, подразделов и отдельных блоков, ограничиваясь длиной строки в 80 символов.</p>
+<code class="css">
+/* ==========================================================================
+   Блок комментариев для раздела
+   ========================================================================== */
+
+
+/* Блок комментариев для подраздела
+   ========================================================================== */
+
+
+/*
+ * Блок комментариев для группы правил.
+ * Хорошо подходит для подробных пояснений и документации.
+ */
+</code>
+			<p>Используйте сноски для комментирования некоторых неочевидных моментов. Например:</p>
+<code class="css">
+/**
+ * Группа кнопок в виде переключателя
+ *
+ * [1] - очистка float
+ * [2] - устранение двойного бордюра
+ *
+ */
+
+.btn-group {
+    overflow: hidden; /* [1] */
+}
+    .btn-group .btn {
+        margin-left: -1px; /* [2] */
+        float: left;
+    }
+</code>
+
+				<h3>Форматирование блока с объявлением свойств</h3>
+				<ul>
+					<li><p>При группировке селекторов помещайте каждый селектор на отдельную строку.</p></li>
+					<li><p>Для лучшей читаемости оставляйте один пробел перед открывающейся фигурной скобкой блока объявлений.</p></li>
+					<li><p>Помещайте закрывающуюся фигурную скобку блока объявлений на новой строке.</p></li>
+					<li><p>Оставляйте один пробел после ":" для каждого объявления.</p></li>
+					<li><p>Каждое объявление должно находится на отдельной строке для более точного сообщения об ошибках.</p></li>
+					<li><p>Завершайте все объявления точкой с запятой. Для последнего объявления в блоке это не является обязательным, но в противном случае ваш код будет более подвержен ошибкам.</p></li>
+					<li><p>Для свойств, значения которых разделены запятыми, следюует оставлять по одному пробелу после каждой запятой (например, <code>box-shadow</code>).</p></li>
+					<li><p>Не оставляйте пробелов после запятых внтури значений <code>rgb()</code>, <code>rgba()</code>, <code>hsl()</code>, <code>hsla()</code>, или <code>rect()</code>. Это помогает различать различные цветовые значения (запятая без пробела) от нескольких значений одного свойства (запятая с пробелом).</p></li>
+					<li><p>Не добавляйте начальный ноль для значений (например, <code>.5</code> вместо <code>0.5</code>).</p></li>
+					<li><p>Все 16-ичные значения записывайте строчными буквами (в нижнем регистре), например, <code>#fff</code>. Строчные буквы гораздо легче различить при просмотре файла, поскольку они, как правило, имеют больше уникальных форм.</p></li>
+					<li><p>Используйте короткие 16-ичные значения везде, где это возможно, например, <code>#fff</code> вместо <code>#ffffff</code>.</p></li>
+					<li><p>Всегда берите в кавычки значения атрибутов внутри селектора, например, <code>input[type="text"]</code>. <a href="http://mathiasbynens.be/notes/unquoted-attribute-values#css">В некоторых случаях это делать необязательно</a>, но это является хорошей практикой для поддержки согласованности.</p></li>
+					<li><p>Опускайте единицы измерения при нулевом значении, например, <code>margin: 0</code>; вместо <code>margin: 0px</code>;. Но стоит учитывать <a href="http://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/#unitless-flex-basis">некоторые баги</a>, возникающие при отсутствии единиц измерения.</p></li>
+					<li><p>К большим группам правил, состоящих из одного свойства, может применяться запись в одну строку. В таком случае следует ставить пробел после открывающей и перед закрывающей скобками.</p>
+<code class="css">
+.col-width-10 { width: 10%; }
+.col-width-20 { width: 20%; }
+.col-width-30 { width: 30%; }
+</code>
+					</li>
+					<li>
+						<p>Свойства, которые могут содержать несколько значений (<code>transition</code>, <code>box-shadow</code>, <code>background</code> и др.), лучше помещать на отдельные  строки.</p>
+<code class="css">
+.box {
+    box-shadow:
+        0 1px 2px #ccc,
+        5px 1px 10px #ccc,
+        -5px 1px 10px #ccc,
+        inset 0 1px 0 #fff;
+    background:
+        url("img1.png") no-repeat 50% 50%,
+        url("pattern") repeat-x 0 100%
+        #f8f8f8;
+}
+</code>
+						<p>При поддержке свойств с префиксами и при наличии малого числа значений свойства можно записывать их в одну строку</p>
+<code class="css">
+.box {
+    -webkit-transition: opacity .3s, background .5s linear;
+            transition: opacity .3s, background .5s linear;
+}
+</code>
+					</li>
+				</ul>
+
+				<h3>Порядок объявления свойств</h3>
+				<p>Объявления логически связанных свойств должны быть сгруппированы в следующем порядке:</p>
+				<ol>
+					<li>
+						<p>Объявления <code>content</code> и css-счетчики для псевдоэлементов</p>
+					</li>
+					<li>
+						<p>Позиционирование и видимость</p>
+					</li>
+					<li>
+						<p>Блочная модель</p>
+					</li>
+					<li>
+						<p>Типографика</p>
+					</li>
+					<li>
+						<p>Отображение</p>
+					</li>
+					<li>
+						<p>Прочее</p>
+					</li>
+				</ol>
+<code class="css">
+.list-item:before {
+    content: counter(num);
+    counter-increment: num;
+
+    position: relative;
+    z-index: 2;
+    top: .5em;
+    left: .75em;
+    margin-right: 5px;
+    transform: scale(.75);
+    opacity: 1;
+
+    display: inline-block;
+    padding: 8px 16px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #e5e5e5;
+
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+
+    color: #333;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    transition: .25s ease-out;
+}
+</code>
+<p>Порядок может быть изменен в случае, когда одно свойство влияет на другие:</p>
+<code class="css">
+.icon {
+    font-size: 24px;
+    width: 1em;
+    height: 1em;
+}
+</code>
+
+				<h3>Подключение css.</h3>
+				<p>Не используйте <code>@import</code>. По сравнению с тегом <code>&lt;link&gt;</code> правило <code>@import</code> медленнее, создает дополнительные запросы и может вызвать иные непредвиденные проблемы. Избегайте это правило и используйте вместо него один из альтернативных подходов:</p>
+				<ul>
+					<li>
+						<p>Используйте несколько тегов <code>&lt;link&gt;</code></p>
+					</li>
+					<li>
+						<p>Компилируйте ваш CSS-код в один файл с помощью препроцессоров, например, Sass, Less, Stylus и др.</p>
+					</li>
+					<li>
+						<p>Склеивайте ваши CSS-файлы с помошью инструментов, которые есть в Rails, Jekyll и других окружениях.</p>
+					</li>
+				</ul>
+
+				<h3>Методологии работы с css (организация файлов, именование)</h3>
+				<ul>
+					<li>
+						<p>OOCSS</p>
+						<ul>
+							<li><a href="http://oocss.org/">Оф. сайт</a></li>
+							<li><a href="https://github.com/stubbornella/oocss/wiki">Github</a></li>
+							<li><a href="http://webformyself.com/vvedenie-v-obektno-orientirovannyj-css-oocss/">Статья</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>SMACSS</p>
+						<ul>
+							<li><a href="https://smacss.com/">Оф. сайт</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>БЭМ</p>
+						<ul>
+							<li><a href="https://ru.bem.info/">Оф. сайт</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>MCSS</p>
+						<ul>
+							<li><a href="http://operatino.github.io/MCSS/">Оф. сайт</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>AMCSS (Attribute Modules for CSS)</p>
+						<ul>
+							<li><a href="https://amcss.github.io/">Оф. сайт</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>Atomic CSS</p>
+						<ul>
+							<li><a href="http://acss.io/">Оф. сайт</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>FUN</p>
+						<ul>
+							<li><a href="http://benfrain.com/enduring-css-writing-style-sheets-rapidly-changing-long-lived-projects/">Статья</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>RSCSS</p>
+						<ul>
+							<li><a href="https://github.com/rstacruz/rscss">Reasonable System for CSS Stylesheet Structure</a></li>
+							<li><a href="http://rscss.io">rscss.io</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>OPOR</p>
+						<ul>
+							<li><a href="http://nano.sapegin.ru/all/opor-methodology">Микрометодология вёрстки OPOR</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>Suit CSS</p>
+						<ul>
+							<li><a href="https://suitcss.github.io/">Style tools for UI components</a></li>
+						</ul>
+					</li>
+					<li>
+						<p>Inverted Triangle CSS</p>
+						<ul>
+							<li><a href="https://github.com/itcss">github</a></li>
+							<li><a href="https://www.youtube.com/watch?v=1OKZOV-iLj4">Видео</a>, <a href="https://speakerdeck.com/dafed/managing-css-projects-with-itcss">Слайды</a></li>
+							<li><a href="http://thomasbyttebier.be/blog/less-css-mess">Статья "Thomas Byttebier - less-css-mess"</a></li>
+						</ul>
+					</li>
+				</ul>
+				<p>Материалы по теме:</p>
+				<ul>
+					<li>
+						<p><a href="http://habrahabr.ru/post/256109/">Способы организации CSS-кода</a></p>
+					</li>
+					<li>
+						<p><a href="http://html5.by/blog/bem-amcss-oocss-atomiccss-opor-mcss-smacss-fun-docssa-video/">Методологии верстки</a></p>
+					</li>
+					<li>
+						<p><a href="http://frontender.info/starting-css/">Начинаем писать CSS</a></p>
+					</li>
+					<li>
+						<p><a href="http://web-standards.ru/articles/cargo-cult-css/">Бен Дарлоу. Культ карго CSS</a></p>
+					</li>
+					<li>
+						<p><a href="http://web-standards.ru/articles/css-architecture/">Филип Уолтон. Архитектура CSS</a></p>
+					</li>
+				</ul>
+			</section>
+
+
+			<section class="section" id="js">
+				<h2>Написание JavaScript</h2>
+
+				<h3>Разметка и стилизация, генерируемая с помощью JavaScript</h3>
+				<p>Создание разметки с помощью JavaScript делает ее менее производительной, сложной для поиска и редактирования. По возможности избегайте этого.</p>
+				<p>В зависимости от поддерживаемых браузеров используйте css по максимуму (анимации, табы), не используйте JavaScript.</p>
+				<p>Если JavaScript изменяет вид страницы, обязательно делать это при помощи смены CSS-классов, а не путём правки атрибута style элемента.</p>
+
+				<p>В разработке...</p>
+			</section>
+
+
+			<section class="section" id="links">
+				<h2>Полезные ссылки</h2>
+
+				<ul>
+					<li>
+						<p>
+							<a href="https://github.com/necolas/idiomatic-css">Nicolas Gallagher. Idiomatic-css.</a>
+						</p>
+						<p>
+							Переводы:
+							<ul>
+								<li><a href="https://github.com/necolas/idiomatic-css/tree/master/translations/ru-RU">Перевод на русский язык</a>
+								</li>
+							</ul>
+						</p>
+					</li>
+					<li>
+						<p>
+							<a href="http://codeguide.co/">Mark Otto.  Code Guide</a>
+						</p>
+						<p>
+							Переводы:
+							<ul>
+								<li><a href="http://instanceof.pro/code-guide">Чистый перевод</a>
+								</li>
+								<li><a href="http://blog.csssr.ru/code-guide">Форк проекта со своими рекомендациями от CSSSR.</a>
+								</li>
+							</ul>
+						</p>
+					</li>
+					<li>
+						<p><a href="http://google-styleguide.googlecode.com/svn/trunk/htmlcssguide.xml">Google HTML/CSS Style Guide</a></p>
+					</li>
+					<li>
+						<p><a href="https://make.wordpress.org/core/handbook/coding-standards/">WordPress Coding Standards</a></p>
+					</li>
+					<li>
+						<p><a href="http://cssguidelin.es">Harry Roberts. CSS Guidelines.</a></p>
+						<p>
+							Переводы:
+							<ul>
+								<li><a href="http://habrahabr.ru/post/235851/">Часть 1</a></li>
+								<li><a href="http://habrahabr.ru/post/235893/">Часть 2</a></li>
+								<li><a href="http://habrahabr.ru/post/236047/">Часть 3</a></li>
+							</ul>
+						</p>
+					</li>
+					<li>
+						<p><a href="http://habrahabr.ru/company/htmlacademy/blog/254171/">HTML Academy. Что такое хорошо: как мы разрабатывали критерии для оценки качества вёрстки веб-проектов.</a></p>
+					</li>
+					<li>
+						<p><a href="http://habrahabr.ru/post/114256/">Чек-лист вёрстки. Что можно отдавать клиенту, а что надо переделывать</a></p>
+					</li>
+					<li>
+						<p><a href="http://www.smashingmagazine.com/2008/05/02/improving-code-readability-with-css-styleguides/">Improving code readability with CSS-styleguides/</a></p>
+					</li>
+					<li>
+						<p><a href="http:styleguides.io">Ресурс, посвященный стайлгайдам.</a></p>
+					</li>
+					<li>
+						<p><a href="http://frontender.info/creating-style-guides/">Susan Robertson. Создание руководства по стилю.</a></p>
+					</li>
+					<li>
+						<p><a href="https://medium.com/@operatino/component-libraries-with-living-style-guides-15576713f522">Robert Haritonov. Component Libraries
+with Living Style Guides.</a></p>
+					</li>
+					<li>
+						<p><a href="https://medium.com/@operatino/living-style-guide-tools-in-depth-overview-28cfffb92d05">Robert Haritonov. Living Style Guide Tools In-depth Overview.</a></p>
+					</li>
+				</ul>
+			</section>
+
+
+		</main>
+	</div>
+
+
+	<script src="assets/js/highlight.pack.js"></script>
+	<script src="assets/js/script.js"></script>
+
+
+</body>
+</html>
