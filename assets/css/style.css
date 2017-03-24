@@ -143,3 +143,7 @@ blockquote {
 				left: .5em;
 				margin-right: -100%;
 			}
+
+	.section h3:not(:first-of-type) {
+		margin-top: 2.5em;
+	}
